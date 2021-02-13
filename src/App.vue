@@ -1,19 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <auth/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import auth from './components/Auth.vue'
+import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    auth
+  },
+  methods: {
+    onload(){
+      this.getUserInfo()
+    }
+  },
+
+  getUserInfo(){
+    console.log("Testing")
+    var jwtToken = auth.auth.getSignInUserSession().getAccessToken().jwtToken;
+    const USERINFO_URL = 'https://'+auth.auth.getAppWebDomain() + '/oauth2/userInfo';
+    var requestData = {
+      headers: {
+        'Authorization': 'Bearer '+ jwtToken
+      }
+    }
+    return axios.get(USERINFO_URL, requestData).then(response => {
+      console.log(response.data)
+      return response.data;
+    });
   }
 }
+
 </script>
 
 <style>

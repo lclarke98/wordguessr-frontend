@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-wordguessrfrontend-dev-130128-authRole",
+      "UnauthRoleArn": "arn:aws:iam::558534823784:role/amplify-wordguessrfrontend-dev-130128-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::558534823784:role/amplify-wordguessrfrontend-dev-130128-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-wordguessrfrontend-dev-130128-deployment",
+      "UnauthRoleName": "amplify-wordguessrfrontend-dev-130128-unauthRole",
+      "StackName": "amplify-wordguessrfrontend-dev-130128",
+      "StackId": "arn:aws:cloudformation:eu-west-2:558534823784:stack/amplify-wordguessrfrontend-dev-130128/975b6420-6dfb-11eb-a86a-066db8a35b94",
+      "AmplifyAppId": "d40j8tqyy6q9r"
+    },
+    "categories": {
+      "auth": {
+        "wordguessrfrontendf686c5db": {}
+      }
+    }
+  }
+}

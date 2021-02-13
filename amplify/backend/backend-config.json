@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "wordguessrfrontendf686c5db": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
