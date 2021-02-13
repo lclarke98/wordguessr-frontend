@@ -1,25 +1,27 @@
 <template>
-  <ul>
-    <li><input type="text" placeholder="Enter your name"></li>
-    <li><button>Start Game</button></li>
-    <li><router-link to="/game">Start Game</router-link></li>
-  </ul>
-
+  <div class="row">
+    <div class="col">
+      <h3>Welcome, </h3>
+      <div class="alert alert-info">
+        {{ userInfo }}
+      </div>
+      <router-link to="/logout">
+        Logout
+      </router-link>
+    </div>
+  </div>
 </template>
-
 <script>
+import UserInfoStore from '../app/user-info-store';
+
 export default {
-name: "Home.vue"
+  name: 'Home',
+  data: function () {
+    return {
+      userInfo: UserInfoStore.state.cognitoInfo
+    }
+  }
 }
-
-
-
-function startGame() {
-
-}
-
 </script>
-
-<style scoped>
-
+<style>
 </style>
