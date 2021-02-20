@@ -24,3 +24,5 @@ export default {
     setLoggedOut: setLoggedOut,
     setCognitoInfo: setCognitoInfo
 }
+
+console.log(state.cognitoInfo)

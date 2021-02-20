@@ -1,4 +1,4 @@
-/* eslint-disable */
+console.log(process.env.VUE_APP_TEST)
 import {CognitoAuth, StorageHelper} from 'amazon-cognito-auth-js';
 import IndexRouter from '../router/index';
 import UserInfoStore from './user-info-store';
