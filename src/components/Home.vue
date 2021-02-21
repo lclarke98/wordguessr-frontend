@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 import UserInfoStore from '../app/user-info-store';
 import axios from "axios";
 export default {
