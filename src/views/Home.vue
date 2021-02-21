@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <User></User>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/Home.vue'
+import User from '@/components/Home'
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
-    HelloWorld
+    User
   }
 }
 </script>

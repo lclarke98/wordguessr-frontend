@@ -1,39 +1,80 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
+import auth from '../app/auth';
+import UserInfoStore from '../app/user-info-store';
+import UserInfoApi from '../app/user-info-api';
 
-Vue.use(VueRouter)
 
-import Auth from '@okta/okta-vue'
+Vue.use(Router)
+
+//Components
 import Home from '../views/Home.vue'
+import GameController from '../views/GameController.vue'
 import GameBoard from '../views/GameBoard.vue'
+import ErrorComponent from '@/components/Error';
+import LogoutSuccess from '@/components/Logout';
 
-Vue.use(Auth, {
-  issuer: 'https://{yourOktaDomain}/oauth2/default',
-  client_id: '{yourClientId}',
-  redirect_uri: 'http://localhost:8080/implicit/callback',
-  scope: 'openid profile email'
-})
+function requireAuth(to, from, next) {
 
-
-const routes = [
-  { path: '/implicit/callback',
-    component: Auth.handleCallback()
-  },
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/game',
-    name: 'GameBoard',
-    component: GameBoard
+  if (!auth.auth.isUserSignedIn()) {
+    UserInfoStore.setLoggedIn(false);
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    });
+  } else {
+    UserInfoApi.getUserInfo().then(response => {
+      UserInfoStore.setLoggedIn(true);
+      UserInfoStore.setCognitoInfo(response);
+      next();
+    });
 
   }
-]
+}
 
-const router = new VueRouter({
-  routes
+export default new Router({
+  mode: 'history',
+  base: '/',
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/login', beforeEnter(to, from, next){
+        auth.auth.getSession();
+      }
+    },
+    {
+      path: '/login/oauth2/code/cognito', beforeEnter(to, from, next){
+        let currUrl = window.location.href;
+        //console.log(currUrl);
+        auth.auth.parseCognitoWebResponse(currUrl);
+      }
+    },
+    {
+      path: '/logout', component: LogoutSuccess,  beforeEnter(to, from, next){
+        auth.logout();
+        next();
+      }
+    },
+    {
+      path: '/error', component: ErrorComponent
+    },
+    {
+      path: '/game',
+      name: 'NewGame',
+      component: GameController,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/StartGame',
+      name: 'GameBoard',
+      component: GameBoard,
+      beforeEnter: requireAuth
+    },
+
+  ]
 })
-
-export default router
