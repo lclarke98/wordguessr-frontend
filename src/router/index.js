@@ -9,6 +9,7 @@ Vue.use(Router)
 
 //Components
 import Home from '../views/Home.vue'
+import GameController from '../views/GameController.vue'
 import GameBoard from '../views/GameBoard.vue'
 import ErrorComponent from '@/components/Error';
 import LogoutSuccess from '@/components/Logout';
@@ -51,7 +52,6 @@ export default new Router({
         let currUrl = window.location.href;
         //console.log(currUrl);
         auth.auth.parseCognitoWebResponse(currUrl);
-        //next();
       }
     },
     {
@@ -66,7 +66,14 @@ export default new Router({
     {
       path: '/game',
       name: 'NewGame',
-      component: GameBoard
+      component: GameController,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/StartGame',
+      name: 'GameBoard',
+      component: GameBoard,
+      beforeEnter: requireAuth
     },
 
   ]
