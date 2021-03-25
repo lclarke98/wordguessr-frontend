@@ -12,19 +12,15 @@
       <div id="correct-container">
         <h1>The Word</h1>
         <div v-if="list.length === 0">
-          <div v-for="char in word">
             <ul>
-              <li>_</li>
+              <li v-for="char in word" style="padding: 10px; display: inline">_</li>
             </ul>
-          </div>
         </div>
         <div v-else>
-            <div v-for="char in word">
               <ul>
-                <li v-if="char.display === true"> {{char.letter}} </li>
-                <li v-else-if="char.display === false"> _ </li>
+                <li v-for="char in word" v-if="char.display === true" style="padding: 10px; display: inline"> {{char.letter}} </li>
+                <li v-else-if="char.display === false" style="padding: 10px; display: inline"> _ </li>
               </ul>
-            </div>
             </div>
         </div>
       </div>
@@ -39,7 +35,7 @@
         </div>
         <div v-else>
           <ul>
-            <li v-for="letter in list" :key="letter.guess" v-if="letter.correct === false">{{letter.guess}}</li>
+            <li v-for="letter in list" :key="letter.guess" v-if="letter.correct === false" style="padding: 10px; display: inline">{{letter.guess}}</li>
           </ul>
         </div>
       </div>
@@ -70,7 +66,6 @@ name: "GameBoard.vue",
   },
   methods: {
     async getGame(){
-      console.log(new URL(location.href).searchParams.get('gameID'))
       axios({
         method:'get',
         url: API_BASE_URL + '/game/game',
@@ -95,8 +90,6 @@ name: "GameBoard.vue",
     },
 
     async makeGuess(){
-      console.log("making guess")
-
       if (await gc.validateGuess(this.guess,this.list) === true){
         axios({
           method: 'post',
@@ -116,6 +109,9 @@ name: "GameBoard.vue",
               this.list = JSON.parse(arr)
               this.word = gc.splitWord(response.data[0].word, this.list)
               this.$emit('completed', response.data.data)
+              if (response.data[2].complete === true){
+                alert("Game Over")
+              }
 
             })
             .catch(error => {
@@ -126,9 +122,6 @@ name: "GameBoard.vue",
       }else {
         alert("Guess already made")
         this.guess = ""
-      }
-      if (await gc.isGameComplete(this.list, this.word)){
-
       }
     },
   },
