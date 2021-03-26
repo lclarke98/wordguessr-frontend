@@ -1,0 +1,65 @@
+@use './base.scss';
+@import './typography/typography.scss';
+@import './partials/color-themes';
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  height: auto;
+  width: 100%;
+  margin: 0px;
+}
+
+#app {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  padding: 8px 16px;
+  margin: 0;
+  @include themed() {
+    background-color: t($bg);
+  }
+}
+
+#theme {
+  height: 100%;
+  width: 100%;
+}
+
+p {
+  margin: 0px;
+  @include font-size($p-font-sizes, base.$breakpoints);
+}
+
+a {
+  text-decoration: none;
+  content: inherit;
+}
+
+a:link,
+a:visited,
+a:hover {
+  color: inherit;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+ul,
+li {
+  text-decoration: none;
+  list-style: none;
+}
