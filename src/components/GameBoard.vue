@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Hi {{userInfo.username}}, guess the word...</h1>
+    <h2>Number of guesses remaining: {{guessCount}}</h2>
     <form @submit.prevent="makeGuess">
       <label>
         <input type="text" placeholder="Make guess" v-model="guess" pattern="[a-z]{1}" >
@@ -39,8 +40,6 @@
           </ul>
         </div>
       </div>
-
-    </div>
   </div>
 
 </template>
@@ -61,7 +60,9 @@ name: "GameBoard.vue",
       isLoading: false,
       guess: '',
       list: '',
-      word: ''
+      word: '',
+      fullWord: '',
+      guessCount: 0,
     }
   },
   methods: {
@@ -78,9 +79,10 @@ name: "GameBoard.vue",
       })
           .then(response => {
             this.isLoading = false
-            this.$emit('completed', response.data.data)
-            let arr = response.data[0].guesses.replace("'", "");
-            this.list = JSON.parse(arr)
+            //this.$emit('completed', response.data.data)
+            this.guessCount = response.data[0].guess_count
+            this.fullWord = response.data[0].word
+            this.list = response.data[1]
             this.word = gc.splitWord(response.data[0].word, this.list)
           })
           .catch(error => {
@@ -90,13 +92,17 @@ name: "GameBoard.vue",
     },
 
     async makeGuess(){
-      if (await gc.validateGuess(this.guess,this.list) === true){
+      if (! this.fullWord.includes(this.guess)){
+        this.guessCount -=1
+      }
+      if (await gc.validateGuess(this.guess,this.list) === true && this.guess !== ""){
         axios({
           method: 'post',
           url: API_BASE_URL + '/game/guessLetter',
           data: {
             gameID: new URL(location.href).searchParams.get('gameID'),
             guess: this.guess,
+            count: this.guessCount
           },
           headers: {
             'Content-Type': 'application/json'
@@ -105,14 +111,14 @@ name: "GameBoard.vue",
             .then(response => {
               this.guess = ''
               this.isLoading = false
-              let arr = response.data[0].guesses.replace("'", "");
-              this.list = JSON.parse(arr)
+              this.list = response.data[1]
               this.word = gc.splitWord(response.data[0].word, this.list)
-              this.$emit('completed', response.data.data)
+              //this.$emit('completed', response.data.data)
               if (response.data[2].complete === true){
-                alert("Game Over")
+                alert("Game Over you won")
+              }else if (this.guessCount === 0){
+                alert("game over you lost")
               }
-
             })
             .catch(error => {
               // handle authentication and validation errors here
