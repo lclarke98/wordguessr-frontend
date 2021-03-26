@@ -1,27 +1,31 @@
 <template>
-
-  <div id="app">
-
-    <img alt="Vue logo" src="./assets/logo.png">
-    <div class="contents">
-      <router-view/>
+  <div class="theme theme--dark">
+    <div id="app">
+      <div class="contents">
+        <Header />
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import './styles/root.scss';
+import './styles/typography/heading.scss';
+import './styles/buttons/buttons.scss';
+
+import Header from '@/components/Header/Header';
+
 export default {
-  name: 'app'
-}
+  name: 'app',
+  components: {
+    Header
+  }
+};
 </script>
 
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
