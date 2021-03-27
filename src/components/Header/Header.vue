@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="header__content">
-      <div class="header__logo"><h2>wordguessr</h2></div>
+      <div class="header__logo">
+        <h2>wordguessr</h2>
+      </div>
       <div class="header__profile">
         <font-awesome-icon icon="user-circle" />
       </div>
