@@ -1,0 +1,42 @@
+@use '../base.scss';
+@import '../partials/color-themes.scss';
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  box-shadow: base.$shadow;
+  cursor: pointer;
+  user-select: none;
+  @include themed() {
+    color: t($text);
+    background-color: t($btn-bg);
+  }
+  &--bg-green {
+    background-color: base.$green !important;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+
+    :nth-child(1) {
+      margin-top: 0;
+    }
+
+    &--w-250px {
+      width: 250px;
+    }
+  }
+}

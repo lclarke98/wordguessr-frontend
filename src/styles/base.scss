@@ -1,0 +1,25 @@
+$wordguessr-greys: (
+  200: #b2bdce,
+  300: #5d7287,
+  700: #242c33,
+  800: #151a24
+);
+
+$bg--light: #f5f5f5;
+$bg--dark: map-get($wordguessr-greys, 800);
+
+$text--light: map-get($wordguessr-greys, 800);
+$text--dark: #f5f5f5;
+
+$breakpoints: (
+  mobile-medium: 376px,
+  xsmall: 576px,
+  small: 768px,
+  medium: 992px,
+  large: 1200px,
+  xlarge: 1576px
+);
+
+$shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2), 0px 4px 4px 0px rgba(0, 0, 0, 0.35),
+  0px 3px 2px 0px rgba(0, 0, 0, 0.55);
+$green: #2eb423;

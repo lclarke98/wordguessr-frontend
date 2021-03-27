@@ -1,0 +1,16 @@
+.home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+
+  .alert {
+    display: none;
+  }
+
+  &__content {
+  }
+}

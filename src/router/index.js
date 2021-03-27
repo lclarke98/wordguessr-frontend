@@ -1,21 +1,19 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 import auth from '../app/auth';
 import UserInfoStore from '../app/user-info-store';
 import UserInfoApi from '../app/user-info-api';
 
-
-Vue.use(Router)
+Vue.use(Router);
 
 //Components
-import Home from '../views/Home.vue'
-import GameController from '../views/GameController.vue'
-import GameBoard from '../views/GameBoard.vue'
+import Home from '../views/Home.vue';
+import GameController from '../views/GameController.vue';
+import GameBoard from '../views/GameBoard.vue';
 import ErrorComponent from '@/components/Error';
 import LogoutSuccess from '@/components/Logout';
 
 function requireAuth(to, from, next) {
-
   if (!auth.auth.isUserSignedIn()) {
     UserInfoStore.setLoggedIn(false);
     next({
@@ -28,7 +26,6 @@ function requireAuth(to, from, next) {
       UserInfoStore.setCognitoInfo(response);
       next();
     });
-
   }
 }
 
@@ -43,25 +40,30 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/login', beforeEnter(to, from, next){
+      path: '/login',
+      beforeEnter(to, from, next) {
         auth.auth.getSession();
       }
     },
     {
-      path: '/login/oauth2/code/cognito', beforeEnter(to, from, next){
+      path: '/login/oauth2/code/cognito',
+      beforeEnter(to, from, next) {
         let currUrl = window.location.href;
         //console.log(currUrl);
         auth.auth.parseCognitoWebResponse(currUrl);
       }
     },
     {
-      path: '/logout', component: LogoutSuccess,  beforeEnter(to, from, next){
+      path: '/logout',
+      component: LogoutSuccess,
+      beforeEnter(to, from, next) {
         auth.logout();
         next();
       }
     },
     {
-      path: '/error', component: ErrorComponent
+      path: '/error',
+      component: ErrorComponent
     },
     {
       path: '/game',
@@ -74,7 +76,6 @@ export default new Router({
       name: 'GameBoard',
       component: GameBoard,
       beforeEnter: requireAuth
-    },
-
+    }
   ]
-})
+});

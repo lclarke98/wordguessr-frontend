@@ -1,0 +1,51 @@
+@use '../base';
+
+// Backgrounds
+$bg: 'bg';
+$btn-bg: 'btn-bg';
+$header-bg: 'header-bg';
+$text: 'text';
+$text-alt: 'text-alt';
+
+// Themes
+$themes: (
+  light: (
+    bg: base.$bg--light,
+    btn-bg: base.$bg--dark,
+    header-bg: base.$bg--dark,
+    text: base.$text--dark,
+    text-alt: base.$text--light
+  ),
+  dark: (
+    bg: base.$bg--dark,
+    btn-bg: base.$bg--light,
+    header-bg: base.$bg--light,
+    text: base.$text--light,
+    text-alt: base.$text--dark
+  )
+);
+
+// Mixin
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+// Function
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

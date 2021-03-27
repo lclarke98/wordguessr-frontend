@@ -1,0 +1,90 @@
+@use '../styles/base.scss';
+@import '../styles/partials/color-themes.scss';
+
+.game-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+
+    h1 {
+      width: 100%;
+      margin: 0 0 20px 0;
+    }
+  }
+
+  &__divider {
+    height: 2px;
+    width: 100%;
+    margin: 20px 0px;
+    border-radius: 2px;
+    @include themed() {
+      background-color: t($btn-bg);
+    }
+  }
+
+  &__guess {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+
+    &__input {
+      width: 48%;
+
+      input {
+        height: 35px;
+        width: 100%;
+        padding: 2px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: base.$shadow;
+        margin-bottom: 10px;
+
+        &:focus {
+          outline: 1px solid base.$green;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 48%;
+      border-radius: 5px;
+      background-color: #e53935;
+
+      &__title {
+        margin: {
+          top: 0;
+          bottom: 10px;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__info {
+      flex-direction: row;
+
+      :nth-child(n) {
+        flex: 1;
+      }
+    }
+  }
+}
