@@ -23,7 +23,7 @@ export default {
   },
 
   methods: {
-    async createGame() {
+    async createGame(mode) {
       axios({
         method: 'post',
         url: API_BASE_URL + '/game/createGame',

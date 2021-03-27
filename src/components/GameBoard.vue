@@ -104,7 +104,8 @@ export default {
         method: 'get',
         url: API_BASE_URL + '/game/game',
         params: {
-          gameID: new URL(location.href).searchParams.get('gameID')
+          gameID: new URL(location.href).searchParams.get('gameID'),
+          userID: this.userInfo.sub,
         },
         headers: {
           'Content-Type': 'application/json'
@@ -138,7 +139,8 @@ export default {
           data: {
             gameID: new URL(location.href).searchParams.get('gameID'),
             guess: this.guess,
-            count: this.guessCount
+            count: this.guessCount,
+            userID: this.userInfo.sub,
           },
           headers: {
             'Content-Type': 'application/json'
