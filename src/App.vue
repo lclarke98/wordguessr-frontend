@@ -1,10 +1,8 @@
 <template>
-  <div class="theme theme--dark">
+  <div id="root" class="theme theme--dark">
     <div id="app">
-      <div class="contents">
-        <Header />
-        <router-view />
-      </div>
+      <Header />
+      <router-view />
     </div>
   </div>
 </template>
