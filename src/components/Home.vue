@@ -1,15 +1,13 @@
 <template>
-  <div class="row">
-    <div class="col">
-      <h1>WordGuessr</h1>
-      <div class="alert alert-info">
-        {{ userInfo }}
-      </div>
+  <div class="home">
+    <h1>wordguessr</h1>
+    <div class="alert alert-info">
+      {{ userInfo }}
+    </div>
 
-      <div class="btn__container">
-        <router-link class="btn" to="/game">New Game</router-link>
-        <router-link class="btn" to="/logout">Logout</router-link>
-      </div>
+    <div class="btn__container btn__container--w-250px">
+      <router-link class="btn" to="/game">New Game</router-link>
+      <router-link class="btn" to="/logout">Logout</router-link>
     </div>
   </div>
 </template>
