@@ -1,3 +1,4 @@
+@use '../base.scss';
 @import '../partials/color-themes.scss';
 
 .btn {
@@ -10,11 +11,16 @@
   margin-top: 10px;
   font-weight: bold;
   font-size: 1rem;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 3px 6px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  box-shadow: base.$shadow;
+  cursor: pointer;
+  user-select: none;
   @include themed() {
     color: t($text);
     background-color: t($btn-bg);
+  }
+  &--bg-green {
+    background-color: base.$green !important;
   }
 
   &__container {
@@ -27,6 +33,10 @@
 
     :nth-child(1) {
       margin-top: 0;
+    }
+
+    &--w-250px {
+      width: 250px;
     }
   }
 }
