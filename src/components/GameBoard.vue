@@ -1,73 +1,84 @@
 <template>
-  <div>
-    <h1>Hi {{ userInfo.username }}, guess the word...</h1>
-    <h2>Number of guesses remaining: {{ guessCount }}</h2>
-    <form @submit.prevent="makeGuess">
-      <label>
-        <input
-          type="text"
-          placeholder="Make guess"
-          v-model="guess"
-          pattern="[a-z]{1}"
-        />
-      </label>
-      <button>Make Guess</button>
-    </form>
+  <div class="game-board">
+    <h1>Welcome {{ userInfo.username }}, good luck guessing the word!</h1>
 
-    <div id="letter-container">
-      <div id="correct-container">
-        <h1>The Word</h1>
+    <div class="game-board__info">
+      <div id="letter-container">
+        <div id="correct-container">
+          <h1>Word:</h1>
+          <div v-if="list.length === 0">
+            <ul>
+              <li v-for="char in word" style="padding: 10px; display: inline">
+                _
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            <ul>
+              <li
+                v-for="char in word"
+                v-if="char.display === true"
+                style="padding: 10px; display: inline"
+              >
+                {{ char.letter }}
+              </li>
+              <li
+                v-else-if="char.display === false"
+                style="padding: 10px; display: inline"
+              >
+                _
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="incorrect-container">
+        <h1>Incorrect guesses:</h1>
         <div v-if="list.length === 0">
-          <ul>
-            <li v-for="char in word" style="padding: 10px; display: inline">
-              _
-            </li>
-          </ul>
+          No guesses yet
         </div>
         <div v-else>
           <ul>
             <li
-              v-for="char in word"
-              v-if="char.display === true"
+              v-for="letter in list"
+              :key="letter.guess"
+              v-if="letter.correct === false"
               style="padding: 10px; display: inline"
             >
-              {{ char.letter }}
-            </li>
-            <li
-              v-else-if="char.display === false"
-              style="padding: 10px; display: inline"
-            >
-              _
+              {{ letter.guess }}
             </li>
           </ul>
         </div>
       </div>
     </div>
 
-    <ul></ul>
+    <div class="game-board__divider"></div>
 
-    <div id="incorrect-container">
-      <h1>Incorrect guesses</h1>
-      <div v-if="list.length === 0">
-        No guesses yet
-      </div>
-      <div v-else>
-        <ul>
-          <li
-            v-for="letter in list"
-            :key="letter.guess"
-            v-if="letter.correct === false"
-            style="padding: 10px; display: inline"
-          >
-            {{ letter.guess }}
-          </li>
-        </ul>
+    <div class="game-board__guess">
+      <form class="game-board__guess__input" @submit.prevent="makeGuess">
+        <label>
+          <input
+            type="text"
+            placeholder="Take a guess..."
+            v-model="guess"
+            pattern="[a-z]{1}"
+          />
+        </label>
+        <div class="btn__container">
+          <button class="btn btn--bg-green">Make Guess</button>
+        </div>
+      </form>
+      <div class="game-board__guess__info">
+        <h3 class="game-board__guess__info__title">Guesses Left:</h3>
+        <p>{{ guessCount }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import './GameBoard.scss';
 import UserInfoStore from '@/app/user-info-store';
 import gc from '@/app/game-controller';
 import axios from 'axios';
@@ -89,28 +100,28 @@ export default {
   },
   methods: {
     async getGame() {
-      // axios({
-      //   method:'get',
-      //   url: API_BASE_URL + '/game/game',
-      //   params: {
-      //     gameID: new URL(location.href).searchParams.get('gameID'),
-      //   },
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      // })
-      //     .then(response => {
-      //       this.isLoading = false
-      //       //this.$emit('completed', response.data.data)
-      //       this.guessCount = response.data[0].guess_count
-      //       this.fullWord = response.data[0].word
-      //       this.list = response.data[1]
-      //       this.word = gc.splitWord(response.data[0].word, this.list)
-      //     })
-      //     .catch(error => {
-      //       this.errors = error.response.data.errors
-      //       this.isLoading = false
-      //     })
+      axios({
+        method: 'get',
+        url: API_BASE_URL + '/game/game',
+        params: {
+          gameID: new URL(location.href).searchParams.get('gameID')
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          this.isLoading = false;
+          //this.$emit('completed', response.data.data)
+          this.guessCount = response.data[0].guess_count;
+          this.fullWord = response.data[0].word;
+          this.list = response.data[1];
+          this.word = gc.splitWord(response.data[0].word, this.list);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+          this.isLoading = false;
+        });
     },
 
     async makeGuess() {
