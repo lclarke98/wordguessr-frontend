@@ -37,30 +37,30 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      beforeEnter: requireAuth
+      //beforeEnter: requireAuth
     },
-    {
-      path: '/login',
-      beforeEnter(to, from, next) {
-        auth.auth.getSession();
-      }
-    },
-    {
-      path: '/login/oauth2/code/cognito',
-      beforeEnter(to, from, next) {
-        let currUrl = window.location.href;
-        //console.log(currUrl);
-        auth.auth.parseCognitoWebResponse(currUrl);
-      }
-    },
-    {
-      path: '/logout',
-      component: LogoutSuccess,
-      beforeEnter(to, from, next) {
-        auth.logout();
-        next();
-      }
-    },
+    // {
+    //   path: '/login',
+    //   beforeEnter(to, from, next) {
+    //     auth.auth.getSession();
+    //   }
+    // },
+    // {
+    //   path: '/login/oauth2/code/cognito',
+    //   beforeEnter(to, from, next) {
+    //     let currUrl = window.location.href;
+    //     //console.log(currUrl);
+    //     auth.auth.parseCognitoWebResponse(currUrl);
+    //   }
+    // },
+    // {
+    //   path: '/logout',
+    //   component: LogoutSuccess,
+    //   beforeEnter(to, from, next) {
+    //     auth.logout();
+    //     next();
+    //   }
+    // },
     {
       path: '/error',
       component: ErrorComponent
@@ -69,13 +69,13 @@ export default new Router({
       path: '/game',
       name: 'NewGame',
       component: GameController,
-      beforeEnter: requireAuth
+      //beforeEnter: requireAuth
     },
     {
       path: '/StartGame',
       name: 'GameBoard',
       component: GameBoard,
-      beforeEnter: requireAuth
+      //beforeEnter: requireAuth
     }
   ]
 });

@@ -23,7 +23,7 @@ export default {
   data: function() {
     return {
       userPoolId: process.env.VUE_APP_COGNITO_USERPOOL_ID,
-      userInfo: UserInfoStore.state.cognitoInfo
+      userInfo: "UserInfoStore.state.cognitoInfo"
     };
   },
 
@@ -33,7 +33,7 @@ export default {
         method: 'post',
         url: API_BASE_URL + '/user/user',
         data: {
-          sub: this.userInfo.sub
+          sub: "this.userInfo.sub"
         },
         headers: {
           'Content-Type': 'application/json'
