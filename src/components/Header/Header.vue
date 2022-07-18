@@ -2,19 +2,16 @@
   <header class="header">
     <div class="header__content">
       <div class="header__logo">
-        <h2>wordguessr</h2>
+        <router-link to="/"><h2>wordguessr</h2></router-link>
       </div>
       <div class="header__profile">
-        <font-awesome-icon icon="user-circle" />
+        <router-link to="/settings"><font-awesome-icon icon="user-circle" /></router-link>
       </div>
       <div class="btn__container">
         <router-link class="header__logout-btn btn" to="/logout">Logout</router-link>
       </div>
     </div>
 
-    <div id="drop-down">
-      <toggle-button id="lightswitch" :value="true" :labels="{checked: 'Light', unchecked: 'Dark'}" @change="onChangeEventHandler"/>
-    </div>
   </header>
 </template>
 
@@ -29,20 +26,6 @@ export default {
     };
   },
   methods:{
-    onChangeEventHandler(){
-      let root = document.getElementById('root')
-      console.log(document.getElementById('lightswitch'))
-      if (root.classList.contains('theme--dark')){
-        document.getElementById('root').classList.remove("theme--dark");
-        document.getElementById('root').classList.add("theme--light");
-      }else{
-        document.getElementById('root').classList.remove("theme--light");
-        document.getElementById('root').classList.add("theme--dark");
-      }
-
-
-
-    }
   }
 };
 

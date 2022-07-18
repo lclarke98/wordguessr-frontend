@@ -4,10 +4,13 @@ import auth from '../app/auth';
 import UserInfoStore from '../app/user-info-store';
 import UserInfoApi from '../app/user-info-api';
 
+
 Vue.use(Router);
 
 //Components
 import Home from '../views/Home.vue';
+import Settings from '../views/Settings.vue';
+import History from '../views/GameHistory.vue';
 import GameController from '../views/GameController.vue';
 import GameBoard from '../views/GameBoard.vue';
 import ErrorComponent from '@/components/Error';
@@ -37,30 +40,30 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      //beforeEnter: requireAuth
+      beforeEnter: requireAuth
     },
-    // {
-    //   path: '/login',
-    //   beforeEnter(to, from, next) {
-    //     auth.auth.getSession();
-    //   }
-    // },
-    // {
-    //   path: '/login/oauth2/code/cognito',
-    //   beforeEnter(to, from, next) {
-    //     let currUrl = window.location.href;
-    //     //console.log(currUrl);
-    //     auth.auth.parseCognitoWebResponse(currUrl);
-    //   }
-    // },
-    // {
-    //   path: '/logout',
-    //   component: LogoutSuccess,
-    //   beforeEnter(to, from, next) {
-    //     auth.logout();
-    //     next();
-    //   }
-    // },
+    {
+      path: '/login',
+      beforeEnter(to, from, next) {
+        auth.auth.getSession();
+      }
+    },
+    {
+      path: '/login/oauth2/code/cognito',
+      beforeEnter(to, from, next) {
+        let currUrl = window.location.href;
+        //console.log(currUrl);
+        auth.auth.parseCognitoWebResponse(currUrl);
+      }
+    },
+    {
+      path: '/logout',
+      component: LogoutSuccess,
+      beforeEnter(to, from, next) {
+        auth.logout();
+        next();
+      }
+    },
     {
       path: '/error',
       component: ErrorComponent
@@ -69,13 +72,25 @@ export default new Router({
       path: '/game',
       name: 'NewGame',
       component: GameController,
-      //beforeEnter: requireAuth
+      beforeEnter: requireAuth
     },
     {
       path: '/StartGame',
       name: 'GameBoard',
       component: GameBoard,
-      //beforeEnter: requireAuth
-    }
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/GameHistory',
+      name: 'History',
+      component: History,
+      beforeEnter: requireAuth
+    },
   ]
 });

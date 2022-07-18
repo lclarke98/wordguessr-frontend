@@ -7,10 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.8",
     "@okta/okta-auth-js": "^4.7.1",
     "amazon-cognito-auth-js": "^1.3.3",
     "amazon-cognito-identity-js": "^4.5.10",
