@@ -116,7 +116,7 @@ export default {
           .then(response => {
             this.isLoading = false;
             //this.$emit('completed', response.data.data)
-            this.guessCount = response.data[0].guess_count;
+            this.guessCount = response.data[0].count;
             this.fullWord = response.data[0].word;
             this.list = response.data[1];
             this.word = gc.splitWord(response.data[0].word, this.list);
@@ -153,12 +153,12 @@ export default {
               this.isLoading = false;
               this.list = response.data[1];
               this.word = gc.splitWord(response.data[0].word, this.list);
-              console.log(this.word)
-              //this.$emit('completed', response.data.data)
               if (response.data[2].complete === true) {
-                alert('Game Over you won');
+                alert('Game Over you won, your word was: ' + this.fullWord);
+                window.location.href = '/game'
               } else if (this.guessCount === 0) {
-                alert('game over you lost');
+                alert('game over you lost, your word was: ' + this.fullWord);
+                window.location.href = '/game'
               }
             })
             .catch(error => {
