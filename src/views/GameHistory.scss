@@ -1,0 +1,39 @@
+.game-history {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  padding-top: 100px;
+}
+
+.history-table{
+  font-size: 0.975rem;
+  line-height: 1.25rem;
+  text-align: left;
+  width: 100%;
+
+  .table-header{
+    background-color: #F9FAFB;
+    font-size: 0.85rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+
+    .table-header-spacing{
+      padding: 0.75rem 1.5rem;
+    }
+
+  }
+
+  .table-data-spacing{
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    white-space: nowrap;
+
+    .table-data-row{
+      border-bottom-width: 1px;
+    }
+  }
+}
+
