@@ -73,6 +73,7 @@
 <!--        <p>{{ guessCount }}</p>-->
 <!--      </div>-->
     </div>
+    <Modal :title="modalTile" :word="theWord"/>
   </div>
 </template>
 
@@ -81,12 +82,13 @@ import './GameBoard.scss';
 import UserInfoStore from '@/app/user-info-store';
 import gc from '@/app/game-controller';
 import axios from 'axios';
+import Modal from "@/components/Modal";
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 
 export default {
   name: 'GameBoard.vue',
-  components: {
-
+  components:{
+    Modal
   },
   data: function() {
     return {
@@ -97,7 +99,9 @@ export default {
       list: '',
       word: '',
       fullWord: '',
-      guessCount: 0
+      guessCount: 0,
+      modalTile: '',
+      theWord: '',
     };
   },
   methods: {
@@ -154,11 +158,13 @@ export default {
               this.list = response.data[1];
               this.word = gc.splitWord(response.data[0].word, this.list);
               if (response.data[2].complete === true) {
-                alert('Game Over you won, your word was: ' + this.fullWord);
-                window.location.href = '/game'
+                this.theWord = this.fullWord
+                this.modalTile = "Game Over you won"
+                document.getElementById('game-complete-modal').classList.remove('hidden')
               } else if (this.guessCount === 0) {
-                alert('game over you lost, your word was: ' + this.fullWord);
-                window.location.href = '/game'
+                this.theWord = this.fullWord
+                this.modalTile = "Game Over you lost"
+                document.getElementById('game-complete-modal').classList.remove('hidden')
               }
             })
             .catch(error => {

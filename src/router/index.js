@@ -7,7 +7,7 @@ import UserInfoApi from '../app/user-info-api';
 
 Vue.use(Router);
 
-//Components
+//Pages
 import Home from '../views/Home.vue';
 import Settings from '../views/Settings.vue';
 import History from '../views/GameHistory.vue';
@@ -15,6 +15,7 @@ import GameController from '../views/GameController.vue';
 import GameBoard from '../views/GameBoard.vue';
 import ErrorComponent from '@/components/Error';
 import LogoutSuccess from '@/components/Logout';
+import Login from '../views/Login'
 
 function requireAuth(to, from, next) {
   if (!auth.auth.isUserSignedIn()) {
@@ -91,6 +92,12 @@ export default new Router({
       name: 'History',
       component: History,
       beforeEnter: requireAuth
+    },
+    {
+      path: '/loginn',
+      name: 'Login',
+      component: Login,
+      //beforeEnter: requireAuth
     },
   ]
 });

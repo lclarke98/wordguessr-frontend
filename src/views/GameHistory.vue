@@ -21,17 +21,16 @@
       </tr>
       </tbody>
     </table>
-
   </div>
 </template>
 
 <script>
 import UserInfoStore from "@/app/user-info-store";
 import axios from "axios";
-import gc from "@/app/game-controller";
 import './GameHistory.scss'
-
+import Modal from '@/components/Modal'
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+
 
 export default {
   name: "GameHistory",
